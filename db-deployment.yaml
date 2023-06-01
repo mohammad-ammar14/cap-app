@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+spec: 
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myapp
+  strategy:
+    type: Recreate 
+  template: 
+    metadata: 
+      labels: 
+        app: myapp
+    spec: 
+      containers:
+        - name: mysql
+          image: dcom-demo.int.repositories.cloud.sap/cpapp-db
+          ports:
+            - containerPort: 4004
+              name: myapp 
+      imagePullSecrets:
+        - name: regcred
